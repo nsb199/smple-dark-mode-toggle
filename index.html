@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Mode Toggle</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<style>
+ body {
+    color: #333;
+    transition: background 0.5s, color 0.5s;
+    font-family: Ubuntu, sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+    position: relative;
+}
+
+body.dark-mode {
+    background: linear-gradient(135deg, #333333 0%, #1a1a1a 100%);
+    color: white;
+}
+
+video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    transition: opacity 0.5s; 
+    opacity: 1; 
+}
+
+.video-hidden {
+    opacity: 0; 
+}
+
+.toggle-container {
+    position: relative;
+    text-align: center;
+    max-width: 40%;
+}
+
+.toggle-label {
+    font-size: 28px; 
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+    margin-top: 19px;
+    color: rgb(222, 241, 252); 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9); 
+}
+
+/* Text color for dark mode */
+body.dark-mode .toggle-label {
+    color: #ddbbbb;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9); 
+}
+
+.switch {
+    display: inline-block;
+    position: relative;
+    width: 100px; 
+    height: 60px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #7c7c7c;
+    transition: 0.4s;
+    border-radius: 60px; 
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 48px; 
+    width: 48px; 
+    left: 5px;
+    bottom: 5px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #333;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #333;
+}
+
+input:checked + .slider:before {
+    transform: translateX(42px); 
+}
+
+
+.slider.round {
+    border-radius: 60px; 
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Icon styles */
+.fas {
+    color: #f1c40f; 
+    font-size: 28px; 
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: opacity 0.4s, visibility 0.4s;
+    z-index: 1; 
+}
+
+
+input:checked + .slider .fas.fa-moon {
+    opacity: 0;
+    visibility: hidden;
+}
+
+input:not(:checked) + .slider .fas.fa-sun {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.fas.fa-moon {
+    right: 9px;
+}
+
+.fas.fa-sun {
+    left: 9px;
+}
+
+</style>
+</head>
+<body>
+<video id="backgroundVideo" autoplay loop>
+  <source src="daytime.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<div class="toggle-container">
+   
+    <label class="switch">
+        <input type="checkbox" class="toggle-checkbox" id="darkModeToggle">
+        <span class="slider round">
+            <i class="fas fa-moon"></i> <!-- Dark mode icon -->
+            <i class="fas fa-sun"></i> <!-- Light mode icon -->
+        </span>
+    </label>
+    <label class="toggle-label">Hey, Its very bright here... Can you please toggle the switch above me 😌</label>
+</div>
+
+<script>
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const toggleLabel = document.querySelector('.toggle-label');
+  const backgroundVideo = document.getElementById('backgroundVideo');
+
+  darkModeToggle.addEventListener('change', () => {
+    document.body.classList.toggle('dark-mode');
+    if (document.body.classList.contains('dark-mode')) {
+      toggleLabel.textContent = "Thank-You!! This is much better...😋";
+      backgroundVideo.style.opacity = '0'; 
+      setTimeout(() => {
+        backgroundVideo.src = "nighttime.mp4";
+        setTimeout(() => {
+          backgroundVideo.style.opacity = '1'; 
+        }, 10); 
+      }, 10); 
+    } else {
+      toggleLabel.textContent = "Hey, Its very bright here... Can you please toggle the switch above me 😌";
+      backgroundVideo.style.opacity = '0'; 
+      setTimeout(() => {
+        backgroundVideo.src = "daytime.mp4";
+        setTimeout(() => {
+          backgroundVideo.style.opacity = '1'; 
+        }, 10); 
+      }, 10); 
+    }
+  });
+</script>
+</body>
+</html>
