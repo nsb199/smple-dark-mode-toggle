@@ -1,6 +1,6 @@
 # Dark and Light Mode Toggle
 
-Hosted Link: [Toggle Switch Demo](https://your-hosted-link-url.com)
+Hosted Link: [Toggle Switch Demo](https://nsb199.github.io/smple-dark-mode-toggle/)
 
 This program implements a simple toggle switch for switching between dark and light modes on a website. It includes icons for the sun and moon, which hide under the toggle circle when toggled on. The background also changes from a daytime loop video to a nighttime loop video when switching to dark mode.
 
